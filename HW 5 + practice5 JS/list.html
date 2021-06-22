@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .displayNone {
+        display: none;
+      }
+
+      #cardsProduct {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 30%;
+        margin: 10px 10px;
+        background-color: #7777e6;
+        border: 2px solid blue;
+      }
+
+      .card img {
+        width: 300px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ваше замовлення:</h1>
+    <div id="wrap">
+      <div id="cardsProduct"></div>
+    </div>
+
+    <button id="deleteAllBtn">Очистити кошик</button>
+
+    <script>
+      let products = JSON.parse(localStorage.getItem("productsList"));
+      let mainDiv = document.getElementById("cardsProduct");
+      let wrap = document.getElementById("wrap");
+
+      for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let product = JSON.parse(localStorage.getItem(key));
+        let div = document.createElement("div");
+
+        div.innerHTML = `<h2>${product.title} - ${product.quantity}</h1><br>
+          <img src="${product.img}" alt="prod-photo"><br>
+          <h2>${product.cost}</h2><br>
+          <button class = "deleteCard">Видалити товар</button>`;
+        mainDiv.appendChild(div);
+        div.classList.add("card");
+        // let id = Date.now();
+        // div.setAttribute('id', `product_${id}`);
+
+        let deleteAllBtn = document.getElementById("deleteAllBtn");
+        deleteAllBtn.onclick = function (event) {
+          event.preventDefault();
+          wrap.classList.add("displayNone");
+          localStorage.clear();
+        };
+      }
+
+      // варіант з масивом (залишила для себе)
+      // for (let product of products) {
+      //   let div = document.createElement("div");
+      //   div.classList.add("card");
+      //   div.innerHTML = `<h2>${product.title} - ${product.quantity}</h1><br>
+      // <img src="${product.img}" alt="prod-photo"><br>
+      // <h2>${product.cost}</h2><br>
+      // <button id = "deleteCard">Видалити товар</button>`;
+      //   mainDiv.appendChild(div);
+
+      // Я про цей шматок коду ->
+      // let deleteCardBtns = document.getElementsByClassName("deleteCard");
+      // for (let btn of deleteCardBtns) {
+      //   btn.onclick = (ev) => {
+      //     console.log(localStorage.key(i));
+      //     //event.preventDefault();
+      //     localStorage.removeItem(localStorage.key(i));
+
+      // let divCard = document.getElementById(`product_${className}`);
+
+      // divCard.classList.add("displayNone");
+      //     };
+      //   }
+      // }
+    </script>
+  </body>
+</html>

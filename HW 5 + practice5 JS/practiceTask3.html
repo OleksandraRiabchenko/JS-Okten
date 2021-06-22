@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Замовлення товару</h1>
+    <form id="f1" action="">
+      <p>
+        Назва товару: <input type="text" name="title" /><br />
+        Кількість товару: <input type="text" name="quantity" /><br />
+        Вартість товару: <input type="text" name="cost" /><br />
+        Зображення товару: <input type="text" name="img" /><br />
+        <input type="submit" name="start" value="Зберегти" />
+      </p>
+    </form>
+
+    <a href="list.html"> На сторінку товарів</a>
+    <script>
+      // let form = document.forms.f1;
+      // let listProducts = [];
+      // form.onsubmit = function (ev) {
+      //   ev.preventDefault();
+      //   let product = {
+      //     title: form.title.value,
+      //     quantity: `${form.quantity.value} шт.`,
+      //     cost: `${form.cost.value}грн/од.`,
+      //     img: form.img.value,
+      //   };
+      //   listProducts.push(product);
+      //   localStorage.setItem("productsList", JSON.stringify(listProducts));
+      // };
+
+
+      //Варіант з ключами та без массива
+      let form = document.forms.f1;
+      form.onsubmit = function (ev) {
+        ev.preventDefault();
+        let product = {
+          title: form.title.value,
+          quantity: `${form.quantity.value} шт.`,
+          cost: `${form.cost.value}грн/од.`,
+          img: form.img.value,
+        };
+        let key = Date.now();
+        localStorage.setItem(`product_${key}`, JSON.stringify(product));
+      };
+       // TODO хочу зробити якісь індивідуальні ключі для лс, варіант з localStorage.length + 1 не дуже добрий, бо коли видаляються об'єкти з лс змінюється довжина і починаються проблемки, що порадите?
+      
+
+
+    </script>
+  </body>
+</html>
